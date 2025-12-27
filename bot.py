@@ -5,8 +5,15 @@ TOKEN = "1351458999:KcCVT7Ve7EWCt-g_6r7pHgflYzOVDdmkuFs"
 BASE_URL = f"https://tapi.bale.ai/bot{TOKEN}"
 
 offset = 0
+MAX_RUNTIME = 1 * 60  # 10 دقیقه به ثانیه
+start_time = time.time()
 
 while True:
+    # بررسی زمان
+    if time.time() - start_time > MAX_RUNTIME:
+        print("Max runtime reached, exiting...")
+        break
+
     resp = requests.get(
         f"{BASE_URL}/getUpdates",
         params={"offset": offset, "timeout": 30}
